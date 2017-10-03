@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event</title>
+</head>
+<body>
+
+	<input id="myText"></input>
+	<h3>测试结果如下图</h3>
+	<img src="../image/004.png">
+
+</body>
+<script type="text/javascript">
+var client = function() {
+    var engine = {
+//         呈现引擎
+        ie: 0,
+        gecko: 0,
+        webkit: 0,
+        khtml: 0,
+        opera: 0,
+
+//        具体的版本号
+        ver: null
+    };
+
+//     在此检测呈现引擎、平台和设备
+
+    return {
+        engine: engine
+    }
+}();
+
+
+var EventUtil = {
+    addHandler: function(element, type, handler) {
+        if (element.addEventListener) {
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    },
+    getEvent: function(event) {
+        return event ? event : window.event;
+    },
+    getTarget: function(event) {
+        return event.target || event.srcElement;
+    },
+    preventDefault: function(event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    },
+    removeHandler: function(element, type, handler) {
+        if (element.removeEventListener) {
+            element.removeEventListener(type, handler, false);
+        } else if (element.detachEvent) {
+            element.detachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = null;
+        }
+    },
+    stopPropagation: function(event) {
+        if (event.stopPropagation) {
+            event.stopPropagation()
+        } else {
+            event.cancelBubble = true;
+        }
+    },
+    getRelatedTarget: function(event) {
+        if (event.relatedTarget) {
+            return event.relatedTarget;
+        } else if (event.toElement) {
+            return event.toElement;
+        } else if (event.fromElement) {
+            return event.fromElement;
+        } else {
+            return null;
+        }
+    },
+    getButton: function (event) {
+        if (document.implementation.hasFeature("MouseEvents", "2.0")) {
+            return event.button;
+        } else {
+            switch(event.button) {
+                case 0:
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                    return 0;
+                case 2:
+                case 6:
+                    return 2;
+                case 4:
+                    return 1;
+            }
+        }
+    },
+    getWheelDelta: function(event) {
+        if (event.wheelDelta) {
+            return (client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
+        } else {
+            return -event.detail * 40
+        }
+    },
+
+    getCharCode: function(event) {
+    	if (typeof event.charCode == "number") {
+    		return event.charCode;
+    	} else {
+    		return event.keyCode
+    	}
+    },
+
+}
+// 键盘与文本事件
+
+/*
+keydown：当用户按下键盘上的任意键时触发，而且如果按住不放的话，会重复触发此事件
+keypress：当用户按下键盘上的字符键时触发，而且如果按住不放的话，会重复触发此事件。按下Esc键也会触发这个事件。Safari3.1之前的版本也会在用户按下非字符键时触发keypress事件。
+keyup：当用户释放键盘上的键时触发
+
+
+
+*/
+// 上面EventUtil中的getCharCode方法首先检测charCode属性是否包含值（在不支持这个属性的浏览器中，值为underfined），如果是，则返回该值。否则，就返回keyCode属性值
+// 示例如下
+
+var textbox = document.getElementById("myText")
+
+EventUtil.addHandler(textbox, "keypress", function(event) {
+	event = EventUtil.getEvent(event);
+	console.log(EventUtil.getCharCode(event))
+	console.log(String.fromCharCode(EventUtil.getCharCode(event)))
+})
+
+
+
+</script>
+</html>
