@@ -1,0 +1,100 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+dl {
+	margin: 0 1.2rem;
+}
+dl>dt {
+	border-bottom:1px solid #dedede;
+
+}
+// CSS 伪类 :first-of-type表示一组兄弟元素中其类型的第一个元素。
+/*
+选择在父元素中第一个出现的<p>，而不管其在兄弟内的位置如何
+p:first-of-type {
+  color: red;
+}
+*/
+dl:first-of-type {
+	margin-top: 20px;
+}
+.list {
+	counter-reset: list;
+}
+.list>dd {
+	line-height: 2;
+	counter-increment: list;
+	font-family: sans-serif;
+	padding-left: 1.2rem;
+	position: relative;
+	color: #999;
+}
+.list>dd::before {
+	content:counter(list)".";
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+span {
+	color: rgb(0, 154, 97);
+}
+#myLinks {
+	counter-reset: number;
+	margin: 0 1.2rem;
+	margin-top: 50px;
+	list-style-type: none;
+}
+#myLinks>li {
+	counter-increment: number;
+	padding-left: 1.2rem;
+	position: relative;
+	line-height: 2rem;
+	width:300px;
+	background-color: green;
+	margin-bottom: 20px;
+	cursor:pointer;
+	border-radius: 5px;
+	color:white;
+	text-indent: 2em;
+
+}
+#myLinks>li::before {
+	content: counter(number)".";
+	position: absolute;
+	top:0;
+	left:0;
+}
+#myDiv {
+	width:500px;
+	display: flex;
+	justify-content: center;
+}
+input {
+	display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42858;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+p {
+	color:red;
+	line-height: 50px;
+	margin-top: 30px;
+	text-indent: 1.2rem;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ContextMenu Event Example</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div id="myDiv">
+		Right click or Ctri+click me to get a custom context menu.
+		Click anywhere else to get the default context menu.
+	</div>
+	<ul id="myMenu" style="position:absolute; visibility: hidden; background-color: silver;">
+		<li><a href="http://www.baidu.com">baidu</a></li>
+		<li><a href="http://www.taobao.com">taobao</a></li>
+		<li><a href="http://www.jd.com">jingdong</a></li>
+	</ul>
+	<h2>效果图如下</h2>
+	<img src="../../image/005.png">
+</body>
+<script type="text/javascript" src="../eventUtil.js"></script>
+<script type="text/javascript">
+	EventUtil.addHandler(window, "load", function(event) {
+		var div = document.getElementById("myDiv")
+		EventUtil.addHandler(div, "contextmenu", function(event) {
+			event = EventUtil.getEvent(event)
+			EventUtil.preventDefault(event)
+
+			var menu = document.getElementById("myMenu")
+			menu.style.left = event.clientX + "px"
+			menu.style.top = event.clientY + "px"
+			menu.style.visibility = "visible";
+		});
+
+		EventUtil.addHandler(document, "click", function(event) {
+			document.getElementById("myMenu").style.visibility = "hidden"
+		})
+
+
+	});
+	EventUtil.addHandler(window, "beforeunload", function(event) {
+		event = EventUtil.getEvent(event)
+		var message = "哈哈哈哈哈哈";
+		event.returnValue = message;
+		return message
+	});
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件委托</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<dl class="list">
+		<dt class="title">事件委托</dt>
+		<dd>在创建GUI的语言（如C#）中，为GUI中的每个按钮添加一个onclick事件处理程序是司空见惯的事，而且这么做也不会导致什么问题，可是在javascript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。导致这一问题的原因是多方面的。</dd>
+		<dd>首先，每个函数都是对象，都会占用内存；内存中的对象越多，性能就越差。</dd>
+		<dd>其次，必须事先指定所有事件处理程序而导致的DOM访问次数，会延迟整个页面的交互就绪时间</dd>
+		<dd>对“事件处理程序过多”问题的解决方案就是<span>事件委托</span></dd>
+
+		<dd>事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。例如：click事件会一直冒泡到document层次。</dd>
+		<dd>也就是说，我们可以为真个页面指定一个onclick事件处理程序，而不必给每个可点击的元素分别添加事件处理程序</dd>
+	</dl>
+	<!-- <h2>以下包含三个被点击后执行操作的列表项</h2> -->
+	<ul id="myLinks">
+		<li id="goSomewhere">Go somewhere</li>
+		<li id="doSomething">Do something</li>
+		<li id="sayHi">Say hi</li>
+	</ul>
+
+	<p>为避免双击，单击下面的按钮后就将按钮移除并替换成一条消息</p>
+
+	<div id="myDiv">
+		<input type="button" name="" value="Click me" id="myBtn">
+	</div>
+
+
+</body>
+<script type="text/javascript" src="../eventUtil.js"></script>
+<script type="text/javascript">
+	// 按照常规做法，需要像下面这样为他们添加3个事件处理程序
+	// var item1 = document.getElementById("goSomewhere");
+	// var item2 = document.getElementById("doSomething");
+	// var item3 = document.getElementById("sayHi");
+
+	// EventUtil.addHandler(item1, "click", function(event) {
+	// 	location.href = "https://www.baidu.com";
+	// })
+
+	// EventUtil.addHandler(item2, "click", function(event) {
+	// 	document.title = "I changed the document's title";
+	// })
+
+	// EventUtil.addHandler(item3, "click", function(event) {
+	// 	console.log("hi")
+	// })
+
+	// 如果在一个复杂的web应用中，对所有可单击的元素都采用这种方式，那么结果就会有数不清的代码用于添加事件处理程序，此时，可以利用事件委托技术解决这个问题。使用事件委托，只需在DOM树中尽量最高的层次上添加一个事件处理程序，如下面的例子所示
+	var list = document.getElementById("myLinks")
+	EventUtil.addHandler(list, "click", function(event) {
+		event = EventUtil.getEvent(event)
+		var target = EventUtil.getTarget(event)
+		switch(target.id) {
+			case "doSomething":
+				document.title = "I changed the document's title";
+				break;
+
+			case "goSomewhere":
+				location.href = "https://www.baidu.com";
+				break;
+
+			case "sayHi":
+				alert("hi");
+				break;
+		}
+	})
+
+	// 移除事件处理程序
+	var btn = document.getElementById("myBtn")
+	btn.onclick = function() {
+
+		// 先执行某些操作
+
+		document.getElementById("myDiv").innerHTML = "Processing..."
+	}
+
+	// 但问题在于，当按钮从页面中移除时，它还带着一个事件处理程序呢。最好的手工移除事件处理程序代码如下
+	btn.onclick = function() {
+
+		// 先执行某些操作
+
+		btn.onclick = null;  //移除事件处理程序
+
+		document.getElementById("myDiv").innerHTML = "Processing..."
+	}
+
+	// 在此，我们在设置<div>的innerHTML属性之前，先移除了按钮的事件处理程序这样就确保了内存可以被再次利用，而从DOM中移除按钮也做到了干净利索
+
+</script>
+</html>
