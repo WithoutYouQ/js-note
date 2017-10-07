@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>select</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<form>
+	<select name="location">
+		<option value="1">A</option>
+		<option value="2">B</option>
+		<option value="3">C</option>
+	</select>
+</form>
+
+</body>
+<script type="text/javascript">
+	var selectbox = document.forms[0].elements["location"]
+	var text = selectbox.options[0].text
+	console.log(text)
+</script>
+</html>

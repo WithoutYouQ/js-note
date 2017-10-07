@@ -105,7 +105,6 @@ var EventUtil = {
     },
 
 
-
     // 操作剪贴板
     getClipboardText: function(event) {
         var clipboardData = (event.clipboardData || window.clipboardData);
@@ -119,5 +118,6 @@ var EventUtil = {
             return window.clipboardData.setData("text", value);
         }
     },
+
 
 }

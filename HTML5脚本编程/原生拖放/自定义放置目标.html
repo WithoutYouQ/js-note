@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定义放置目标</title>
+	<style type="text/css">
+		#droptarget {
+			width: 300px;
+			height: 300px;
+			border: 1px solid;
+		}
+	</style>
+</head>
+<body>
+	<h1>HAHAH</h1>
+	<div id="droptarget"></div>
+	<input type="text" name="" id="inp">
+</body>
+<script type="text/javascript" src="../../common/eventUtil.js"></script>
+<script type="text/javascript">
+	var droptarget = document.getElementById("droptarget")
+
+	EventUtil.addHandler(droptarget, "dragover", function (event) {
+		EventUtil.preventDefault(event)
+	})
+
+	EventUtil.addHandler(droptarget, "dragenter", function (event) {
+		EventUtil.preventDefault(event)
+		var dataTransfer = event.dataTransfer
+
+		dataTransfer.dropEffect = "move"
+		dataTransfer.effectAllowed = "move"
+
+		console.log(dataTransfer)
+
+	})
+
+	EventUtil.addHandler(droptarget, "dragstart", function (event) {
+		EventUtil.preventDefault(event)
+
+		EventUtil.preventDefault(event)
+		var dataTransfer = event.dataTransfer
+
+		dataTransfer.dropEffect = "move"
+		dataTransfer.effectAllowed = "move"
+
+		console.log(dataTransfer)
+
+
+	})
+
+	EventUtil.addHandler(droptarget, "drop", function (event) {
+		EventUtil.preventDefault(event)
+	})
+
+	var inp = document.getElementById("inp")
+
+	EventUtil.addHandler(droptarget, "dragenter", function (event) {
+		EventUtil.preventDefault(event)
+		var dataTransfer = event.dataTransfer
+		console.log(dataTransfer)
+	})
+
+</script>
+</html>

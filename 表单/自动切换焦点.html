@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<form>
+	<input type="text" size="4" name="tel1" id="textTel1" maxlength="3">
+	<input type="text" size="4" name="tel2" id="textTel2" maxlength="4">
+	<input type="text" size="4" name="tel3" id="textTel3" maxlength="4">
+</form>
+
+</body>
+<script type="text/javascript" src="eventUtil.js"></script>
+<script type="text/javascript">
+(function() {
+
+	function tabForward(event) {
+		event = EventUtil.getEvent(event);
+		var target = EventUtil.getTarget(event);
+
+		if (target.value.length == target.maxLength) {
+			var form = target.form;
+
+			for (var i = 0, len = form.elements.length; i < len; i++) {
+				if (form.elements[i] == target) {
+					if (form.elements[i + 1]) {
+						form.elements[i + 1].focus();
+					}
+					return;
+				}
+			}
+		}
+	}
+
+	var textbox1 = document.getElementById("textTel1");
+	var textbox2 = document.getElementById("textTel2");
+	var textbox3 = document.getElementById("textTel3");
+
+	EventUtil.addHandler(textbox1, "keyup", tabForward);
+	EventUtil.addHandler(textbox2, "keyup", tabForward);
+	EventUtil.addHandler(textbox3, "keyup", tabForward);
+
+})();
+</script>
+</html>
