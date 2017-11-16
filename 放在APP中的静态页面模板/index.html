@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
+	<title>静态页面模板</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			font-size: calc(100vw / 7.5);
+		}
+
+		@media screen and (min-width: 750px) {
+			html {
+				font-size: calc(750px / 7.5);
+			}
+		}
+
+		body {
+			font-family: PingFangSC-Regular, font-family: Helvetica Neue, Tahoma, Arial, Hiragino Sans GB, sans-serif;
+			margin: 0 auto;
+			width: 7.5rem;
+			font-size: .28rem;
+			background-color: #F5F5F8;
+		}
+
+		.wrap {
+			letter-spacing: 0;
+			color:#333333;
+		}
+		a {
+			display: flex;
+			align-items: center;
+			width: 100%;
+			text-decoration: none;
+			font-size: .32rem;
+			color: #333333;
+			line-height: .36rem;
+			background-color: white;
+			padding: .24rem .3rem;
+			margin-bottom: .2rem;
+			box-sizing: border-box;
+		}
+		a::after {
+			content: "";
+			width: .2rem;
+			height: .2rem;
+			border-top: 1px solid #A5A5A5;
+			border-right: 1px solid #A5A5A5;
+			margin-right: 0;
+			margin-left: auto;
+			transform: rotate(45deg);
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="wrap">
+		<div class="listWrap">
+			<a>
+			<span>App使用说明</span>
+			</a>
+			<a>
+				<span>常见问题集锦</span>
+			</a>
+
+			<a>
+				<span>咨询师服务标准</span>
+			</a>
+
+			<a>
+				<span>如何提高竞争力（平台使用篇）</span>
+			</a>
+
+			<a class="lastA">
+				<span>如何提高竞争力（个人技巧篇）</span>
+			</a>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		// alert(innerWidth)
+		// alert(screen.width)
+		// alert(document.documentElement.clientWidth)
+		// alert(devicePixelRatio)
+
+		var userAgent = navigator.userAgent
+
+		if (/vivo x7/i.test(userAgent)) {
+			document.documentElement.style.fontSize = "calc(90vw / 7.5)"
+		}
+
+
+		// // 若是适配微信内置浏览器就用这个
+		// if (/vivo x7/i.test(userAgent)) {
+		// 	document.documentElement.style.fontSize = "calc(66.6vw / 7.5)"
+		// }
+
+		// 此为1.0版本
+		// function checkCalcSupport() {
+		// 	var div = document.createElement("div")
+
+		// 	div.style.cssText = "width:calc(100vw / 7.5)"
+
+		// 	return div.style.cssText.length
+		// }
+
+		// function calculateRootFontSize() {
+		// 	var idealViewportWidth = window.innerWidth
+		// 	var ua = navigator.userAgent
+
+		// 	if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
+		// 		idealViewportWidth = (3 * idealViewportWidth) / 2.6   //小米虽然 dpr 是3，但表现的依然是2.6
+		// 	}
+
+		// 	document.documentElement.style.fontSize = idealViewportWidth / 7.5 + "px"
+		// }
+
+		// if (!checkCalcSupport()) {
+		// 	alert("不支持calc ！")
+		// 	calculateRootFontSize()
+		// }
+
+		// 此为2.0版本
+		function checkCalcSupport() {
+			if (window.CSS) {
+				return CSS.supports("width", "calc(100vw /7.5)")
+			}
+
+			var div = document.createElement("div")
+
+			div.style.cssText = "width: calc(100vw / 7.5)"
+
+			return div.style.cssText.length
+		}
+
+		function calculateRootFontSize() {
+			var idealViewportWidth = Math.min(innerWidth, 750)
+
+			var fontSizeStr = (idealViewportWidth / 7.5).toFixed(2) + "px"
+
+			document.documentElement.style.fontSize = fontSizeStr
+
+			console.log(getComputedStyle(document.documentElement).fontSize)
+		}
+
+		if (!checkCalcSupport()) {
+			calculateRootFontSize()
+		}
+
+		calculateRootFontSize()
+
+
+		// 此为定位适配问题所用方法途径之一
+		// var div = document.createElement("div")
+		// div.style.fontSize = "calc(100vw * 7.5)"
+		// document.body.appendChild(div)
+
+		// console.log(getComputedStyle(div).fontSize)
+
+		// console.log(getComputedStyle(document.documentElement).fontSize)
+
+		// setTimeout(() => {
+		//   	console.log(document.body.clientWidth)
+		//   	console.log(document.documentElement.clientWidth)
+		// }, 1000)
+
+
+
+
+	</script>
+</body>
+</html>
