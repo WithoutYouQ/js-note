@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>title</title>
+<style type="text/css">
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+
+	html {
+		font-size: calc(100vw / 7.5);
+		word-wrap: break-word;
+		word-break: normal;
+
+	}
+
+	@media screen and (min-width: 750px) {
+		html {
+			font-size: calc(750px / 7.5);
+		}
+	}
+
+	body {
+		font-size: .28rem;
+		font-family: Helvetica Neue, Tahoma, Arial, PingFangSC-Regular, Hiragino Sans GB, sans-serif;
+		width:7.5rem;
+		margin:0 auto;
+		background-color: #F5F5F8;
+
+
+	}
+	.wrap {
+		padding:.2rem .4rem .8rem;
+		font-family: PingFang-SC-Medium;
+		letter-spacing: 0;
+		/* line-height: .48rem; */
+		color:#333333;
+		padding: .6rem .3rem;
+	}
+	.title {
+		font-size: .48rem;
+		color: #000;
+		line-height: .66rem;
+		margin-bottom: .4rem;
+
+	}
+	.item {
+		padding-bottom: .4rem;
+		min-width: 100%;
+	}
+
+	h3 {
+		font-size: .36rem;
+		line-height: .5rem;
+		/* margin-bottom: .16rem; */
+		color: #000;
+		font-weight: normal;
+	}
+
+	p {
+		font-size: .30rem;
+		line-height: .42rem;
+		color: #333;
+		margin-top: .16rem;
+		min-width: 100%;
+		white-space: wrap;
+		overflow: auto;
+		background-color: ;
+	}
+
+	pre {
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		line-height: .42rem;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="item">
+
+			<pre>
+
+			</pre>
+		</div>
+
+
+
+
+	</div>
+</body>
+<script type="text/javascript">
+	// alert(innerWidth)
+	// alert(screen.width)
+	// alert(document.documentElement.clientWidth)
+	// alert(devicePixelRatio)
+	var userAgent = navigator.userAgent
+	if (/vivo x7/i.test(userAgent)) {
+		// document.documentElement.style.fontSize = "calc(90vw / 7.5)"
+		var fontSize = 100 / (parseFloat(getComputedStyle(document.documentElement).fontSize) / (Math.min(innerWidth, screen.width) / 7.5))
+		document.documentElement.style.fontSize =  "calc(" + fontSize + "vw / 7.5)"
+
+	}
+
+	function checkCalcSupport() {
+		var div = document.createElement("div")
+		div.style.cssText = "width: calc(100vw / 7.5)"
+		return div.style.cssText.length
+	}
+	function calculateRootFontSize() {
+		var idealViewportWidth = window.innerWidth
+		var ua = navigator.userAgent
+		if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
+			//value = (3 * value) / window.devicePixelRatio
+			idealViewportWidth = (3 * idealViewportWidth) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
+		}
+		document.documentElement.style.fontSize = idealViewportWidth / 7.5 + "px";
+
+	}
+	//calculateRootFontSize()
+	if(!checkCalcSupport()) {
+		 alert("不支持calc！")
+		calculateRootFontSize()
+	}
+
+	//alert(getComputedStyle(document.documentElement).fontSize)
+
+	// var div = document.createElement("div")
+
+
+	// div.style.fontSize = "calc(100vw * 7.5)"
+
+	// document.body.appendChild(div)
+
+	// alert(getComputedStyle(div).fontSize)
+
+	// alert(getComputedStyle(document.documentElement).fontSize)
+
+	// setTimeout(() => {
+	//   alert(document.body.clientWidth)
+	//   alert(document.documentElement.clientWidth)
+	// }, 1000)
+
+
+</script>
+</html>
+

@@ -92,7 +92,9 @@
 		var userAgent = navigator.userAgent
 
 		if (/vivo x7/i.test(userAgent)) {
-			document.documentElement.style.fontSize = "calc(90vw / 7.5)"
+			// document.documentElement.style.fontSize = "calc(90vw / 7.5)"
+			var fontSize = 100 / (parseFloat(getComputedStyle(document.documentElement).fontSize) / (Math.min(innerWidth, screen.width) / 7.5))
+			document.documentElement.style.fontSize =  "calc(" + fontSize + "vw / 7.5)"
 		}
 
 
