@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ch-cnm-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端代码异常检测</title>
+</head>
+<body>
+    <script>
+        window.addEventListener('error', (msg, rul, row, col, error) => {
+            console.log('我知道 404 错误了');
+            console.log(
+                msg, url, row, col, error
+            );
+
+            return true
+        }, true)
+
+    </script>
+    <img src="./404.png">
+</body>
+</html>

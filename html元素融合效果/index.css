@@ -1,0 +1,13 @@
+.target {
+    filter: url("#goo");
+}
+.ball {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background-color: #beceeb;
+    position: absolute;
+}
+
+.ball + .ball {
+    margin-left: 200px;
+}
